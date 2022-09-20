@@ -1,0 +1,11 @@
+version: "3.7"
+services:
+  app:
+    container_name: todo-list-vue
+    build: .
+    entrypoint: ./.docker/entrypoint.sh
+    volumes:
+      - .:/app
+    working_dir: /app
+    ports:
+      - 8080:8080
