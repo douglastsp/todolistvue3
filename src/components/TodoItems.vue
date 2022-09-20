@@ -1,6 +1,9 @@
 <template>
     <div class="space-y-2">
-        <TodoItem v-for="(n, index) of 5" :key="index" />
+        <TodoItem v-for="todo in $store.state.todos" 
+            :key="todo.id"
+            :todo="todo" 
+        />
     </div>
 </template>
 
