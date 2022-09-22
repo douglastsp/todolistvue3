@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-gray-300 rounded-sm">
+    <div :class="{'bg-gray-700': isFocused}"  class="bg-gray-300 rounded-sm">
         <div class="flex items-center px-4 py-3 border-b 
     border-gray-400 last:border-b-0">
             <div class="flex items-center justify-center 
@@ -15,14 +15,17 @@
                 </button>
             </div>
 
-            <div class="w-full">
+            <div class="w-full text-gray-700">
                 <input
                     @keyup.enter="onTitleChange"
+                    @focusin="onChangeBgInputActive"
+                    @focusout="onChangeBgInputInactive"
                     type="text"
                     placeholder="Digite a sua tarefa"
                     v-model="title"
+                    :class="{'line-through': isCompleted, 'bg-gray-700 text-gray-100': isFocused}"
                     class="bg-gray-300 placeholder-gray-500 
-    text-gray-700 font-light focus:outline-none block w-full appearance-none 
+     font-light focus:outline-none block w-full appearance-none 
     leading-normal mr-3"
                 >
             </div>
@@ -56,43 +59,64 @@
 </template>
 
 <script>
+import { ref } from 'vue';
+import { useStore } from 'vuex';
+
 export default {
     props:{
         todo: Object,
         default: () => ({})
     },
-    data() {
-        return {
-            title: this.todo.title,
-            isCompleted: this.todo.completed
-        }
-    },
-    methods: {
-        onTitleChange() {
-            if (!this.title) {
+    setup(props) {
+        const title = ref(props.todo.title);
+        const isCompleted = ref(props.todo.completed);
+        const isFocused = ref(false);
+        const store = useStore();
+
+        const onTitleChange = () => {
+            if (!title.value) {
                 return;
             }
-            this.updateTodo();
-        },
+            updateTodo();
+        };
 
-        onCheckClick() {
-            this.isCompleted = !this.isCompleted;
-            this.updateTodo();
-        },
+        const onCheckClick = () => {
+            isCompleted.value = !isCompleted.value;
+            updateTodo();
+        };
 
-        onDelete() {
-            this.$store.dispatch('deleteTodo', this.todo.id);
-        },
+        const onDelete = () => {
+            store.dispatch('deleteTodo', props.todo.id);
+        };
 
-        updateTodo() {
+        const updateTodo = () => {
             const payload = {
-                id: this.todo.id,
+                id: props.todo.id,
                 data: {
-                    title: this.title,
-                    completed: this.isCompleted
+                    title: title.value,
+                    completed: isCompleted.value
                 }
             };
-            this.$store.dispatch('updateTodo', payload);
+            store.dispatch('updateTodo', payload);
+        };
+
+        const onChangeBgInputActive = () => {
+            isFocused.value = true;
+        }
+
+        const onChangeBgInputInactive = () => {
+            isFocused.value = false;
+        }
+
+        return {
+            title,
+            isCompleted,
+            onTitleChange,
+            onCheckClick,
+            onDelete,
+            onChangeBgInputActive,
+            onChangeBgInputInactive,
+            isFocused
         }
     },
 }

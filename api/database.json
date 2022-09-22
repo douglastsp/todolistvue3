@@ -1,9 +1,14 @@
 {
   "todos": [
     {
-      "title": "Teste",
-      "completed": false,
+      "title": "Testado",
+      "completed": true,
       "id": 1
+    },
+    {
+      "title": "mais um",
+      "completed": false,
+      "id": 2
     }
   ]
 }
