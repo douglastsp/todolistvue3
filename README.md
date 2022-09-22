@@ -1,24 +1,18 @@
-# todo-list
-
+# todo-list project with vue 3
+## Techs
+> built with Vue 3 and TailwindCSS
 ## Project setup
 ```
 npm install
 ```
-
-### Compiles and hot-reloads for development
+### This project is using docker
 ```
-npm run serve
+npm run docker-compose up -d
 ```
-
-### Compiles and minifies for production
+### go to api folder and run this command
 ```
-npm run build
+json-server --watch database.json
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+<![todoList](https://media.giphy.com/media/WEdNe7C3pabFqoyQZq/giphy.gif)
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

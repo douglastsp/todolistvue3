@@ -9,6 +9,7 @@
               />
               <TodoEmpty v-else />
             </template>
+            <TodoAlerts />
         </div>
     </div>
 </template>
@@ -20,10 +21,11 @@ import TodoSpinner from '@/components/TodoSpinner.vue';
 import TodoFormAdd from '@/components/TodoFormAdd.vue';
 import TodoItems from '@/components/TodoItems.vue';
 import TodoEmpty from '@/components/TodoEmpty.vue';
+import TodoAlerts from "../components/TodoAlerts.vue"
 
 export default {
     name: "Home",
-    components: { TodoSpinner, TodoFormAdd, TodoItems, TodoEmpty },
+    components: { TodoSpinner, TodoFormAdd, TodoItems, TodoEmpty, TodoAlerts },
     setup() {
       const loading = ref(false);
       const store = useStore();
