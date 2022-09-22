@@ -16,5 +16,5 @@ npm run docker-compose up -d
 json-server --watch database.json
 ```
 <p align="center">
-<![todoList](https://media.giphy.com/media/WEdNe7C3pabFqoyQZq/giphy.gif)
+    <img src="https://media.giphy.com/media/WEdNe7C3pabFqoyQZq/giphy.gif" alt="todoList" />
 </p>
