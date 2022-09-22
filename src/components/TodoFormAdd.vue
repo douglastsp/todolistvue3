@@ -25,6 +25,7 @@
 <script>
 import { useStore } from 'vuex';
 import { ref } from 'vue';
+import { notify } from "notiwind";
 export default {
     setup() {
         const title = ref('');
@@ -32,6 +33,12 @@ export default {
 
         const addTodo = () => {
             if (!title.value) {
+                notify({
+                    group: "alerts",
+                    title: "Atenção",
+                    type: "warning",
+                    text: "É necessário preencher o campo de texto"
+                }, 2000);
                 return false;
             }
             store.dispatch('addTodo', {
@@ -39,6 +46,12 @@ export default {
                completed: false 
             }).finally(() => {
                 title.value = '';
+                notify({
+                    group: "alerts",
+                    title: "Sucesso",
+                    type: "success",
+                    text: "Nova tarefa adicionada"
+                }, 2000);
             });
         }
 

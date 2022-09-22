@@ -61,6 +61,7 @@
 <script>
 import { ref } from 'vue';
 import { useStore } from 'vuex';
+import { notify } from "notiwind"
 
 export default {
     props:{
@@ -75,9 +76,21 @@ export default {
 
         const onTitleChange = () => {
             if (!title.value) {
+                notify({
+                    group: "alerts",
+                    title: "Atenção",
+                    type: "warning",
+                    text: "É necessário preencher o campo de texto"
+                }, 2000);
                 return;
             }
             updateTodo();
+            notify({
+                    group: "alerts",
+                    title: "Sucesso",
+                    type: "success",
+                    text: "O título da terfa foi alterdo."
+                }, 2000);
         };
 
         const onCheckClick = () => {
